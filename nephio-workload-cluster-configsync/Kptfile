@@ -21,3 +21,9 @@ upstreamLock:
 info:
   site: https://nephio.org
   description: Package for configSync.
+pipeline:
+  mutators:
+  - name: PackageVariant.nephio-workload-cluster-configsync..0
+    image: gcr.io/kpt-fn/set-annotations:v0.1.4
+    configMap:
+      nephio.org/cluster-name: nephio-workload-cluster
