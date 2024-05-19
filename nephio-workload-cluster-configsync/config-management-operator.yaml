@@ -4,6 +4,7 @@ metadata: # kpt-merge: /configmanagements.configmanagement.gke.io
   annotations:
     controller-gen.kubebuilder.io/version: v0.5.0
     internal.kpt.dev/upstream-identifier: 'apiextensions.k8s.io|CustomResourceDefinition|default|configmanagements.configmanagement.gke.io'
+    nephio.org/cluster-name: nephio-workload-cluster
   creationTimestamp: null
   name: configmanagements.configmanagement.gke.io
 spec:
@@ -265,6 +266,7 @@ metadata: # kpt-merge: /config-management-system
     configmanagement.gke.io/system: "true"
   annotations:
     internal.kpt.dev/upstream-identifier: '|Namespace|default|config-management-system'
+    nephio.org/cluster-name: nephio-workload-cluster
 ---
 apiVersion: v1
 kind: Namespace
@@ -274,6 +276,7 @@ metadata: # kpt-merge: /config-management-monitoring
     configmanagement.gke.io/system: "true"
   annotations:
     internal.kpt.dev/upstream-identifier: '|Namespace|default|config-management-monitoring'
+    nephio.org/cluster-name: nephio-workload-cluster
 ---
 # The Nomos system creates RBAC rules, so it requires
 # full cluster-admin access. Thus, the operator needs
@@ -287,6 +290,7 @@ metadata: # kpt-merge: /config-management-operator
   name: config-management-operator
   annotations:
     internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRole|default|config-management-operator'
+    nephio.org/cluster-name: nephio-workload-cluster
 rules:
 - apiGroups: ["*"]
   resources: ["*"]
@@ -300,6 +304,7 @@ metadata: # kpt-merge: /config-management-operator
   name: config-management-operator
   annotations:
     internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRoleBinding|default|config-management-operator'
+    nephio.org/cluster-name: nephio-workload-cluster
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -318,6 +323,7 @@ metadata: # kpt-merge: config-management-system/config-management-operator
   namespace: config-management-system
   annotations:
     internal.kpt.dev/upstream-identifier: '|ServiceAccount|config-management-system|config-management-operator'
+    nephio.org/cluster-name: nephio-workload-cluster
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -328,6 +334,7 @@ metadata: # kpt-merge: config-management-system/config-management-operator
     k8s-app: config-management-operator
   annotations:
     internal.kpt.dev/upstream-identifier: 'apps|Deployment|config-management-system|config-management-operator'
+    nephio.org/cluster-name: nephio-workload-cluster
 spec:
   strategy:
     type: Recreate
@@ -343,6 +350,8 @@ spec:
       labels:
         k8s-app: config-management-operator
         component: config-management-operator
+      annotations:
+        nephio.org/cluster-name: nephio-workload-cluster
     spec:
       containers:
       - command:
