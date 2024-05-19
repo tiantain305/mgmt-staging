@@ -1,0 +1,22 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata: # kpt-merge: /nephio-workload-cluster-multus
+  name: nephio-workload-cluster-multus
+  annotations:
+    config.kubernetes.io/local-config: "true"
+    internal.kpt.dev/upstream-identifier: 'kpt.dev|Kptfile|default|nephio-workload-cluster-multus'
+upstream:
+  type: git
+  git:
+    repo: https://github.com/nephio-project/catalog.git
+    directory: infra/capi/multus
+    ref: infra/capi/multus/v2.0.0
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/nephio-project/catalog.git
+    directory: infra/capi/multus
+    ref: infra/capi/multus/v2.0.0
+    commit: f4e99a9f506951405a3e200b52c58318f6f75efa
+info:
+  description: simple multus package
