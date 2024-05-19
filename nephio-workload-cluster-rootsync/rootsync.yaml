@@ -1,15 +1,16 @@
 apiVersion: configsync.gke.io/v1beta1
 kind: RootSync
 metadata: # kpt-merge: config-management-system/example-cluster-name
-  name: example-rootsync
+  name: nephio-workload-cluster
   namespace: config-management-system
   annotations:
     internal.kpt.dev/upstream-identifier: configsync.gke.io|RootSync|config-management-system|example-cluster-name
+    nephio.org/cluster-name: nephio-workload-cluster
 spec:
   sourceFormat: unstructured
   git:
-    repo: http://172.18.0.200:3000/nephio/example-rootsync.git
+    repo: http://172.18.0.200:3000/nephio/nephio-workload-cluster.git
     branch: main
     auth: token
     secretRef:
-      name: example-rootsync-access-token-configsync
+      name: nephio-workload-cluster-access-token-configsync
