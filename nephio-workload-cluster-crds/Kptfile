@@ -1,0 +1,29 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata: # kpt-merge: /nephio-workload-cluster-crds
+  name: nephio-workload-cluster-crds
+  annotations:
+    config.kubernetes.io/local-config: "true"
+    internal.kpt.dev/upstream-identifier: 'kpt.dev|Kptfile|default|nephio-workload-cluster-crds'
+    nephio.org/cluster-name: nephio-workload-cluster
+upstream:
+  type: git
+  git:
+    repo: https://github.com/nephio-project/catalog.git
+    directory: nephio/core/workload-crds
+    ref: nephio/core/workload-crds/v2.0.0
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/nephio-project/catalog.git
+    directory: nephio/core/workload-crds
+    ref: nephio/core/workload-crds/v2.0.0
+    commit: f4e99a9f506951405a3e200b52c58318f6f75efa
+info:
+  description: Package for Workload CRDs.
+pipeline:
+  mutators:
+  - name: PackageVariant.nephio-workload-cluster-crds..0
+    image: gcr.io/kpt-fn/set-annotations:v0.1.4
+    configMap:
+      nephio.org/cluster-name: nephio-workload-cluster
