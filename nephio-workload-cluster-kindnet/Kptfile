@@ -20,3 +20,9 @@ upstreamLock:
     commit: f4e99a9f506951405a3e200b52c58318f6f75efa
 info:
   description: Package for kindnet CNI.
+pipeline:
+  mutators:
+  - name: PackageVariant.nephio-workload-cluster-kindnet..0
+    image: gcr.io/kpt-fn/set-annotations:v0.1.4
+    configMap:
+      nephio.org/cluster-name: nephio-workload-cluster
